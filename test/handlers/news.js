@@ -34,9 +34,9 @@ describe("POST /news", function() {
           .expect(202)
           .end(cb);
       },
-      function checkDB(cb) {
+      function checkDB(res, cb) {
         Category.find({name: "#tata"}, function(err, category){
-          category.should.have.property("name", "#tata");
+          category.should.containDeep([{"name": "#tata"}]);
           cb();
         });
       }
@@ -52,11 +52,14 @@ describe("POST /news", function() {
           .expect(202)
           .end(cb);
       },
-      function checkDB(cb) {
-        News.find({name: "#tata"}, function(err, news){
-          news.should.have.property("categories", ["#tata", "#lol"]);
-          news.should.have.property("title", "oser");
-          news.should.have.property("url", "haha");
+      function checkDB(res, cb) {
+        News.findOne({categories: "#tata"}, function(err, news){
+          console.log(typeof(news.categories));
+          console.log(typeof['#tata', '#lol']);
+
+          news.should.have.property("categories");
+          news.categories.toString().should.be.eql(['#tata', '#lol'].toString());
+          news.should.have.property("title", "osef");
           news.should.have.property("url", "haha");
           cb();
         });
