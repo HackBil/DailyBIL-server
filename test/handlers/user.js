@@ -3,24 +3,14 @@
 require('should');
 var request = require('supertest');
 
-describe("POST /user", function() {
-  it("should refuse connexion without all parameters", function(done) {
+describe("GET /users", function() {
+  it("should return good values", function(done) {
     request("http://localhost:8000")
-      .post("/user")
-      .send({})
-      .expect(409)
-      .end(done);
-  });
-
-  it("should return 202", function(done) {
-    request("http://localhost:8000")
-      .post("/user")
-      .send({name: "lol"})
-      .expect(202)
+      .get("/users")
+      .expect(200)
       .expect(function(res) {
-        res.shoud.have.property("token");
+        res.body.shoud.eql("Hugo,");
       })
       .end(done);
   });
-
 });
