@@ -1,0 +1,32 @@
+{
+  "name": "DailyBIL-server",
+  "version": "0.0.0",
+  "description": "LATER =====",
+  "main": "./lib/",
+  "scripts": {
+    "start": "node ./bin/server",
+    "test": "NODE_ENV=test mocha --recursive -R spec test/ -t 5000",
+    "lint": "jshint lib/ test/ bin/",
+    "coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive -R spec test/ -t 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HackBil/DailyBIL-server.git"
+  },
+  "author": "Hugo Duroux",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackBil/DailyBIL-server/issues"
+  },
+  "homepage": "https://github.com/HackBil/DailyBIL-server",
+  "dependencies": {
+    "restify": "^2.7.0",
+    "supertest": "^0.10.0",
+    "async": "^0.7.0",
+    "mocha": "^1.18.2",
+    "crypto": "0.0.3",
+    "mongoose": "^3.8.8",
+    "should": "^3.3.0",
+    "auto-load": "^1.0.0"
+  }
+}

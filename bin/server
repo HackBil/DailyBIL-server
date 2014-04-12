@@ -1,0 +1,17 @@
+#!/bin/env node
+
+// Load NewRelic
+if(process.env.NEW_RELIC_LICENSE_KEY) {
+  require('newrelic');
+}
+
+// Load configuration
+var config = require("../config.js");
+
+// Load server
+var server = require('../app.js');
+
+// Start the server
+server.listen(config.port, function() {
+  console.log("server listening on port " + config.port);
+});
