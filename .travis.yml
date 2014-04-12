@@ -7,3 +7,5 @@ install:
   - npm install
 script:
   - npm test
+notifications:
+  flowdock: c7da1ce6a825bf9a9072d3bd96fb7433
