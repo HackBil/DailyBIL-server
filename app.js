@@ -23,8 +23,10 @@ server.use(restify.CORS());
 server.use(restify.fullResponse());
 
 server.get('/categories', lib.handlers.categories.get);
-server.post('/news', lib.handlers.news.post);
 server.get('/users', lib.handlers.users.get);
+
+server.post('/news', lib.handlers.news.post);
+server.get('/news', lib.handlers.news.get);
 
 // Expose the server
 module.exports = server;
