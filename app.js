@@ -24,7 +24,7 @@ server.use(restify.fullResponse());
 
 server.get('/categories', lib.handlers.categories.get);
 server.post('/news', lib.handlers.news.post);
-server.post('/tupeuxpastrouver/user', lib.handlers.user.post);
+server.get('/users', lib.handlers.users.get);
 
 // Expose the server
 module.exports = server;
