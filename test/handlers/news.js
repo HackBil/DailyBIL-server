@@ -4,12 +4,13 @@ require('should');
 var request = require('supertest');
 var async = require('async');
 var mongoose = require('mongoose');
+var app = require('../../app.js');
 
 describe("POST /news", function() {
   var News = mongoose.model('News');
   var Category = mongoose.model('Category');
   it("should refuse connexion without all parameters", function(done) {
-    request("http://localhost:8000")
+    request(app)
       .post("/news")
       .send({token: process.env.MASTER_TOKEN, url: "haha"})
       .expect(409)
@@ -17,7 +18,7 @@ describe("POST /news", function() {
   });
 
   it("should refuse connexion without a valid token", function(done) {
-    request("http://localhost:8000")
+    request(app)
       .post("/news")
       .send({token: "0", url: "haha", title:"osef", categories: ["#tata"]})
       .expect(409)
@@ -27,7 +28,7 @@ describe("POST /news", function() {
   it("should create a category if does not exists", function(done) {
     async.waterfall([
       function sendRequest(cb) {
-        request("http://localhost:8000")
+        request(app)
           .post("/news")
           .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
           .expect(202)
@@ -45,7 +46,7 @@ describe("POST /news", function() {
   it("should store the tweet", function(done) {
     async.waterfall([
       function sendRequest(cb) {
-        request("http://localhost:8000")
+        request(app)
           .post("/news")
           .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
           .expect(202)
