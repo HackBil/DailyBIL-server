@@ -54,9 +54,6 @@ describe("POST /news", function() {
       },
       function checkDB(res, cb) {
         News.findOne({categories: "#tata"}, function(err, news){
-          console.log(typeof(news.categories));
-          console.log(typeof['#tata', '#lol']);
-
           news.should.have.property("categories");
           news.categories.toString().should.be.eql(['#tata', '#lol'].toString());
           news.should.have.property("title", "osef");
