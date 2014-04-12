@@ -9,6 +9,17 @@ var app = require('../../app.js');
 describe("POST /news", function() {
   var News = mongoose.model('News');
   var Category = mongoose.model('Category');
+  before(function(done) {
+    async.parallel([
+      function clearNews(cb){
+        News.remove({}, cb);
+      },
+      function clearCategory(cb){
+        Category.remove({}, cb);
+      },
+    ], done);
+  });
+
   it("should refuse connexion without all parameters", function(done) {
     request(app)
       .post("/news")
@@ -62,5 +73,20 @@ describe("POST /news", function() {
         });
       }
     ], done);
+  });
+});
+
+describe("get /news", function() {
+  it("should return news", function(done) {
+    request(app)
+      .get("/news")
+      .expect(200)
+      .expect(function(res){
+        res.body.should.containDeep([{"user": "Hugo"}]);
+        res.body.should.containDeep([{"title": "osef"}]);
+        res.body.should.containDeep([{"url": "haha"}]);
+        res.body.should.containDeep([{"categories": [ '#tata', '#lol' ]}]);
+      })
+      .end(done);
   });
 });
