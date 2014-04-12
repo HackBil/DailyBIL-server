@@ -11,7 +11,7 @@ describe("POST /news", function() {
   it("should refuse connexion without all parameters", function(done) {
     request("http://localhost:8000")
       .post("/news")
-      .send({token: "0", url: "haha"})
+      .send({token: process.env.MASTER_TOKEN, url: "haha"})
       .expect(409)
       .end(done);
   });
@@ -29,7 +29,7 @@ describe("POST /news", function() {
       function sendRequest(cb) {
         request("http://localhost:8000")
           .post("/news")
-          .send({token: "123456789", url: "haha", title:"osef", categories: ["#tata"]})
+          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
           .expect(202)
           .end(cb);
       },
@@ -47,15 +47,16 @@ describe("POST /news", function() {
       function sendRequest(cb) {
         request("http://localhost:8000")
           .post("/news")
-          .send({token: "123456789", url: "haha", title:"osef", categories: ["#tata"]})
+          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
           .expect(202)
           .end(cb);
       },
       function checkDB(cb) {
-        News.find({name: "#tata"}, function(err, category){
-          category.should.have.property("name", "#tata");
-          category.should.have.property("tile", "oser");
-          category.should.have.property("url", "haha");
+        News.find({name: "#tata"}, function(err, news){
+          news.should.have.property("categories", ["#tata", "#lol"]);
+          news.should.have.property("title", "oser");
+          news.should.have.property("url", "haha");
+          news.should.have.property("url", "haha");
           cb();
         });
       }
