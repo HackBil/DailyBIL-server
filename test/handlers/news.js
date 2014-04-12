@@ -5,10 +5,9 @@ var request = require('supertest');
 var async = require('async');
 var mongoose = require('mongoose');
 
-var News = mongoose.model('News');
-var Category = mongoose.model('Category');
-
 describe("POST /news", function() {
+  var News = mongoose.model('News');
+  var Category = mongoose.model('Category');
   it("should refuse connexion without all parameters", function(done) {
     request("http://localhost:8000")
       .post("/news")
