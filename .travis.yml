@@ -3,10 +3,12 @@ services:
 - mongodb
 node_js:
 - '0.10'
-install:
-- npm install
-script:
-- npm test
+before_script:
+  - npm install -g istanbul
+  - npm install coveralls
+  - npm install mocha-lcov-reporter
+after_script:
+  - NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec --recursive && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
 notifications:
   flowdock:
     secure: stXNeqjEKm4VQ/6s07y6zw7aIwzAWEqaPVos1+EkQeaWqsp9hpKImQUxgOFoWbTDQooX5RAuQy2JdqvymaKk/LuU9C6CTvwv7Am9u2EyAIhUlRd41LjoIAY32idRaNa5u3g8h3Mk6bh2EBir1E/DdikHMSoUxCzs6ER00BS6sao=
