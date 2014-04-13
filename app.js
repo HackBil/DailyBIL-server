@@ -30,6 +30,7 @@ server.get('/news', lib.handlers.news.get);
 
 server.post('/tweeter', lib.handlers.tweeter.post);
 server.get('/tweeter', lib.handlers.tweeter.get);
+server.del('/tweeter', lib.handlers.tweeter.del);
 
 server.get('/preview', lib.handlers.preview.get);
 
