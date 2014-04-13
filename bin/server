@@ -11,6 +11,9 @@ var config = require("../config.js");
 // Load server
 var server = require('../app.js');
 
+// Load engine
+require("../lib/engine.js")
+
 // Start the server
 server.listen(config.port, function() {
   console.log("server listening on port " + config.port);
