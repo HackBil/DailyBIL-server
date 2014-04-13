@@ -27,7 +27,7 @@ describe("GET /users", function() {
   before(function createCategory(done){
     request(app)
       .post("/news")
-      .send({token: process.env.MASTER_TOKEN, url: "blague.fr", title:"fortran", categories: "#supérieur,#ruby", user: "Jean Blagun"})
+      .send({token: process.env.MASTER_TOKEN, url: "blague.fr", title:"fortran", categories: "supérieur,ruby", user: "Jean Blagun"})
       .expect(202)
       .end(done);
   });

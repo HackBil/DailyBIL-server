@@ -29,7 +29,7 @@ describe("get /categories", function() {
       function createCategories(cb){
         request(app)
           .post("/news")
-          .send({token: process.env.MASTER_TOKEN, url: "trouve.fr", title:"à", categories: "#manger,#tousseul", user: "Africain"})
+          .send({token: process.env.MASTER_TOKEN, url: "trouve.fr", title:"à", categories: "manger,tousseul", user: "Africain"})
           .expect(202)
           .end(cb);
       },
@@ -38,7 +38,7 @@ describe("get /categories", function() {
           .get("/categories")
           .expect(200)
           .expect(function(res){
-            res.body.should.eql("#manger,#tousseul,");
+            res.body.should.eql("manger,tousseul,");
           })
           .end(cb);
       }

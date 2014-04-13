@@ -31,7 +31,7 @@ describe("POST /news", function() {
   it("should refuse connexion without a valid token", function(done) {
     request(app)
       .post("/news")
-      .send({token: "0", url: "haha", title:"osef", categories: ["#tata"]})
+      .send({token: "0", url: "haha", title:"osef", categories: ["tata"]})
       .expect(409)
       .end(done);
   });
@@ -41,13 +41,13 @@ describe("POST /news", function() {
       function sendRequest(cb) {
         request(app)
           .post("/news")
-          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
+          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "tata,lol", user: "Hugo"})
           .expect(202)
           .end(cb);
       },
       function checkDB(res, cb) {
-        Category.find({name: "#tata"}, function(err, category){
-          category.should.containDeep([{"name": "#tata"}]);
+        Category.find({name: "tata"}, function(err, category){
+          category.should.containDeep([{"name": "tata"}]);
           cb();
         });
       }
@@ -59,14 +59,14 @@ describe("POST /news", function() {
       function sendRequest(cb) {
         request(app)
           .post("/news")
-          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "#tata,#lol", user: "Hugo"})
+          .send({token: process.env.MASTER_TOKEN, url: "haha", title:"osef", categories: "tata,lol", user: "Hugo"})
           .expect(202)
           .end(cb);
       },
       function checkDB(res, cb) {
-        News.findOne({categories: "#tata"}, function(err, news){
+        News.findOne({categories: "tata"}, function(err, news){
           news.should.have.property("categories");
-          news.categories.toString().should.be.eql(['#tata', '#lol'].toString());
+          news.categories.toString().should.be.eql(['tata', 'lol'].toString());
           news.should.have.property("title", "osef");
           news.should.have.property("url", "haha");
           cb();
@@ -85,7 +85,7 @@ describe("get /news", function() {
         res.body.should.containDeep([{"user": "Hugo"}]);
         res.body.should.containDeep([{"title": "osef"}]);
         res.body.should.containDeep([{"url": "haha"}]);
-        res.body.should.containDeep([{"categories": [ '#tata', '#lol' ]}]);
+        res.body.should.containDeep([{"categories": [ 'tata', 'lol' ]}]);
       })
       .end(done);
   });

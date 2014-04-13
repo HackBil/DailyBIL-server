@@ -31,6 +31,8 @@ server.get('/news', lib.handlers.news.get);
 server.post('/tweeter', lib.handlers.tweeter.post);
 server.get('/tweeter', lib.handlers.tweeter.get);
 
+server.get('/preview', lib.handlers.preview.get);
+
 
 // Expose the server
 module.exports = server;
