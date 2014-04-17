@@ -20,3 +20,6 @@ nohup.out
 
 # Jekyll artifacts
 _site/*
+
+# secret keys
+keys.sh
