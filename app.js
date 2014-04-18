@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var config = require('./config.js');
 
 var lib = require('./lib/');
+var logger = require('./lib/middlewares/logger');
 
 // Connect mongoose
 console.log("using", config.mongoUrl);
@@ -14,6 +15,10 @@ mongoose.connect(config.mongoUrl);
 
 // Create server
 var server = restify.createServer();
+
+if(process.env.NODE_ENV !== 'test') {
+  server.use(logger);
+}
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());

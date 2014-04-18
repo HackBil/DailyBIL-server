@@ -17,7 +17,7 @@ server.listen(config.port, function() {
 });
 
 // Start the twitter config listner
-require('../lib/sender/twitter_config').start();
+require('../lib/tweet/twitter_config').start();
 
 // Start the engine
 require('../lib/engine').start();
